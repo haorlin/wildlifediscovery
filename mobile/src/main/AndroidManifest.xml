@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.raymondlin.wildlifediscoveryprototype" >
+
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <!-- We need permission to listen to boot_completed -->
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+
+        <!-- Here we specify that we want to send BOOT_COMPLETED to our
+       AutoStart class -->
+        <receiver android:name=".AutoStart">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyA5r-pcX1CEAZbjyNj4EhRNtlvrihuIqN4" />
+
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".LoginActivity"
+            android:label="Login" >
+        </activity>
+        <activity
+            android:name=".RegisterActivity"
+            android:label="Register" >
+        </activity>
+        <activity
+            android:name=".MainMenuActivity"
+            android:label="Main Menu" >
+        </activity>
+        <activity android:name=".ViewEncountersActivity" />
+        <activity
+            android:name=".ViewEncountersDetailActivity"
+            android:label="@string/title_activity_view_encounters_detail" >
+        </activity>
+        <activity
+            android:name=".ViewEncountersDetailEditActivity"
+            android:label="@string/title_activity_view_encounters_detail_edit" >
+        </activity>
+        <activity
+            android:name=".TakePhoto"
+            android:label="@string/title_activity_take_photo" >
+        </activity>
+        <activity
+            android:name=".ReviewEncounter"
+            android:label="@string/title_activity_review_encounter" >
+        </activity>
+        <activity
+            android:name=".ViewAlerts"
+            android:label="@string/title_activity_view_alerts" >
+        </activity>
+        <activity
+            android:name=".AddNotification"
+            android:label="@string/title_activity_add_notification" >
+        </activity>
+        <activity
+            android:name=".AddEncounterActivity"
+            android:label="@string/title_activity_add_encounter" >
+        </activity>
+
+        <service
+            android:name=".MyMobileSenderService"
+            android:exported="false" >
+        </service>
+        <service
+            android:name=".MyCurrentLocationIntentService"
+            android:exported="false" >
+        </service>
+        <service
+            android:name=".LocationPollService"
+            android:enabled="true"
+            android:exported="true" >
+        </service>
+    </application>
+
+</manifest>
