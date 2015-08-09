@@ -16,6 +16,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.SimpleAdapter;
@@ -45,6 +46,7 @@ public class ViewEncountersActivity extends Activity {
     public ArrayList<String> imageUriStrList = new ArrayList<String>();
     public Location currentLocation;
     public CustomListArrayListAdapter adapter;
+    ImageButton add;
 
     Integer[] imgid={
             R.drawable.animal_1,
@@ -203,8 +205,17 @@ public class ViewEncountersActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.view_encounters);
 
+        add = (ImageButton) findViewById(R.id.ImageButton1);
 
+        final Intent goAdd = new Intent(this, AddEncounterActivity.class);
+        goAdd.putExtra("tookpic", "false");
 
+        add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(goAdd);
+            }
+        });
 
         mydb = new DBHelper(this);
 //        this.getImageUriStrList();
@@ -384,6 +395,12 @@ public class ViewEncountersActivity extends Activity {
                 return false;
             }
         });
+    }
+
+    @Override
+    public void onStop () {
+        super.onStop();
+        mydb.close();
     }
 }
 

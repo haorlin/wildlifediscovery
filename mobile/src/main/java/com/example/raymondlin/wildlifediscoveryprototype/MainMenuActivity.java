@@ -31,11 +31,16 @@ public class MainMenuActivity extends TabActivity {
             tab = (Integer) savedInstanceState.getSerializable("GO_TO_TAB");
         }
 
-        TabSpec addspec = tabHost.newTabSpec("Add Encounter");
-        // setting Title and Icon for the Tab
-        addspec.setIndicator("Add Encounter");
-        Intent addIntent = new Intent(this, AddEncounterActivity.class);
-        addIntent.putExtra("tookpic", "false");
+//        TabSpec addspec = tabHost.newTabSpec("Add Encounter");
+//        // setting Title and Icon for the Tab
+//        addspec.setIndicator("Add Encounter");
+//        Intent addIntent = new Intent(this, AddEncounterActivity.class);
+//        addIntent.putExtra("tookpic", "false");
+//        addspec.setContent(addIntent);
+
+        TabSpec addspec = tabHost.newTabSpec("My Profile");
+        addspec.setIndicator("My Profile");
+        Intent addIntent = new Intent(this, ProfileActivity.class);
         addspec.setContent(addIntent);
 
         TabSpec viewspec = tabHost.newTabSpec("View All Encounters");

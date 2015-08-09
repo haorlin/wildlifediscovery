@@ -9,8 +9,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RadioButton;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  * Created by raymondlin on 7/29/15.
@@ -24,7 +30,7 @@ public class AddEncounterActivity extends Activity {
     EditText species;
     EditText note;
     String photoString;
-    RadioButton rb;
+    ImageButton rb;
     //RadioButton rb2;
     CheckBox checkb;
 
@@ -84,7 +90,38 @@ public class AddEncounterActivity extends Activity {
 
         }
         android.util.Log.i("tag", "here");
-        rb = (RadioButton)findViewById(R.id.radioButton);
+        Calendar calobj = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+        time1.setText(sdf.format(calobj.getTime()));
+
+        DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+        //get current date time with Date()
+        Date d = new Date();
+
+        date1.setText(dateFormat.format(d));
+        rb = (ImageButton)findViewById(R.id.camera);
+        final Intent i = new Intent(this, TakePhoto.class);
+
+        rb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                i.putExtra("species", species1.getText().toString());
+                i.putExtra("time", time1.getText().toString());
+                i.putExtra("date", date1.getText().toString());
+                i.putExtra("note", note1.getText().toString());
+                i.putExtra("location", location1.getText().toString());
+                i.putExtra("tookpic", "true");
+                if (che){
+                    i.putExtra("needsid", "true");
+                    Log.v("tag", "put in true to photo");
+                } else {
+                    i.putExtra("needsid", "false");
+                    Log.v("tag", "put in false to photo");
+                }
+                startActivity(i);
+            }
+        });
+
         //rb2 = (RadioButton)findViewById(R.id.radioButton2);
         checkb = (CheckBox)findViewById(R.id.checkBox);
         //if (checkb.isChecked()) {
@@ -117,30 +154,6 @@ public class AddEncounterActivity extends Activity {
                         done();
                     }
                 });
-    }
-
-    public void onRadioButtonClicked(View view) {
-        // Is the button now checked?
-        boolean checked = ((RadioButton) view).isChecked();
-        rb.toggle();
-
-        //startActivity(new Intent(this, TakePhoto.class));
-        Intent i = new Intent(this, TakePhoto.class);
-        i.putExtra("species", species1.getText().toString());
-        i.putExtra("time", time1.getText().toString());
-        i.putExtra("date", date1.getText().toString());
-        i.putExtra("note", note1.getText().toString());
-        i.putExtra("location", location1.getText().toString());
-        i.putExtra("tookpic", "true");
-        if (che){
-            i.putExtra("needsid", "true");
-            Log.v("tag", "put in true to photo");
-        } else {
-            i.putExtra("needsid", "false");
-            Log.v("tag", "put in false to photo");
-        }
-        startActivity(i);
-
     }
 
 //    public void onRadioButtonClicked(View view) {

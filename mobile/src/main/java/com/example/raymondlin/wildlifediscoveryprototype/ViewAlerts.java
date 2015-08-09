@@ -159,6 +159,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.provider.SyncStateContract;
 import android.util.Log;
@@ -166,7 +167,9 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.List;
@@ -178,19 +181,31 @@ public class ViewAlerts extends Activity {
 
     AlertDB mydb;
     ListView listView ;
-    Button add, back;
+    ImageButton add, back;
+    TextView empty, title;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.view_alerts);
 
+
+
         final Intent addAlert = new Intent(this, AddNotification.class);
-        add = (Button)findViewById(R.id.add);
+        add = (ImageButton)findViewById(R.id.ImageButton1);
 
         mydb = new AlertDB(this);
 
         final Intent main_menu = new Intent(this, MainMenuActivity.class);
         main_menu.putExtra("GO_TO_TAB", 2);
+
+
+        empty = (TextView) findViewById(R.id.empty);
+        title = (TextView) findViewById(R.id.cc);
+
+        Typeface tf = Typeface.createFromAsset(getAssets(), "RobotoTTF/Roboto-Black.ttf");
+        empty.setTypeface(tf);
+        title.setTypeface(tf);
+        empty.setVisibility(View.INVISIBLE);
 
         final AlertListArrayListAdapter adapter=new AlertListArrayListAdapter(this, mydb.getAllAnimals(), mydb.getAllNotes(), mydb.getAllRadius(), mydb.getAllRadius());
         listView = (ListView)findViewById(R.id.listview);
@@ -248,6 +263,10 @@ public class ViewAlerts extends Activity {
                                 adapter.remove(adapter.getItem(int_id));
                                 adapter.notifyDataSetChanged();
 
+                                if (mydb.getAllID().isEmpty()) {
+                                    empty.setVisibility(View.VISIBLE);
+                                }
+
                             }
                         })
                         .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
@@ -261,6 +280,16 @@ public class ViewAlerts extends Activity {
                 return true;
             }
         });
+
+        if (mydb.getAllID().isEmpty()) {
+            empty.setVisibility(View.VISIBLE);
+        }
+    }
+
+    @Override
+    public void onStop () {
+        super.onStop();
+        mydb.close();
     }
 
 

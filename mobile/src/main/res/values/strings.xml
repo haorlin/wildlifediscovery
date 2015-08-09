@@ -24,5 +24,6 @@
     <string name="title_activity_view_alerts">ViewAlerts</string>
     <string name="title_activity_add_notification">AddNotification</string>
     <string name="title_activity_add_encounter">AddEncounterActivity</string>
+    <string name="title_activity_profile">ProfileActivity</string>
 
 </resources>

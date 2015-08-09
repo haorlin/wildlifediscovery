@@ -15,9 +15,11 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
 
-        <!-- Here we specify that we want to send BOOT_COMPLETED to our
-       AutoStart class -->
-        <receiver android:name=".AutoStart">
+        <!--
+       Here we specify that we want to send BOOT_COMPLETED to our
+       AutoStart class
+        -->
+        <receiver android:name=".AutoStart" >
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
@@ -91,6 +93,11 @@
             android:enabled="true"
             android:exported="true" >
         </service>
+
+        <activity
+            android:name=".ProfileActivity"
+            android:label="@string/title_activity_profile" >
+        </activity>
     </application>
 
 </manifest>

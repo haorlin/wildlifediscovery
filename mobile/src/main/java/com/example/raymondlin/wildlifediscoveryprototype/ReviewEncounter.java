@@ -24,6 +24,8 @@ public class ReviewEncounter extends ActionBarActivity {
     public Button mButton;
     public Button back;
     public String needsid;
+    DBHelper db;
+    ProfileDB db2;
 
 
     @Override
@@ -94,7 +96,8 @@ public class ReviewEncounter extends ActionBarActivity {
     }
 
     public void add(){
-        DBHelper db = new DBHelper(this);
+        db = new DBHelper(this);
+        db2 = new ProfileDB(this);
         //.......................................need change identification field
         String b = "";
         if (needsid.equals("true")){
@@ -103,6 +106,7 @@ public class ReviewEncounter extends ActionBarActivity {
             b = "False";
         }
         db.insertEntry(species, time, b, note, "37.86628242,-122.29113579", photo);
+        db2.insertEntry(species, time, b, note, "37.86628242,-122.29113579", photo);
 //        "Sealion",    "07:45", "baby sealion is sooo cute!", "37.86628242,-122.29113579", imageUriStrList.get(12)
 
 
@@ -128,6 +132,13 @@ public class ReviewEncounter extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onStop () {
+        super.onStop();
+        db.close();
+        db2.close();
     }
 }
 
